@@ -1,0 +1,27 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pylint = "*"
+pytest = "*"
+pytest-flask = "*"
+pytest-cov = "*"
+# pytest-mock = "*"
+# factory_boy = "*"
+# vcrpy = "*"
+
+[packages]
+flask = "*"
+# gunicorn = "*"
+# requests = "*"
+# flask-sqlalchemy = "*"
+# flask-migrate = "*"
+# flask-marshmallow = "*"
+# marshmallow-sqlalchemy = "*"
+# flask-caching = "*"
+# flask-wtf = "*"
+
+[requires]
+python_version = "3.6.8"

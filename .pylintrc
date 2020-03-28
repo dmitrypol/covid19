@@ -1,0 +1,9 @@
+[MESSAGES CONTROL]
+# https://github.com/PyCQA/pylint/blob/master/examples/pylintrc
+disable=line-too-long,
+        fixme,
+        wildcard-import,
+        multiple-imports,
+        logging-format-interpolation,
+        missing-function-docstring,
+        missing-class-docstring

@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+
+  python:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/opt/covid19
+    ports:
+      - target: 5000
+        published: 5000
+    # environment:
+    #   foo: bar
+    env_file:
+      - devops/common.env

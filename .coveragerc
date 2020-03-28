@@ -1,0 +1,4 @@
+[run]
+source = .
+omit = 
+    app/config.py
