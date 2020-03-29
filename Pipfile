@@ -10,7 +10,8 @@ pytest-flask = "*"
 pytest-cov = "*"
 # pytest-mock = "*"
 # factory_boy = "*"
-# vcrpy = "*"
+vcrpy = "*"
+fakeredis = "*"
 
 [packages]
 flask = "*"

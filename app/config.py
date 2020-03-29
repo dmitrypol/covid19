@@ -1,6 +1,9 @@
 ''' config settings '''
 import os
 from logging.config import dictConfig
+import redis
+import fakeredis
+
 
 APP_NAME = os.environ.get('app_name')
 HOME_DIR = os.environ.get('home_dir')
@@ -14,9 +17,11 @@ REDLOCK_CONN = [{'host': REDIS_HOST, 'port': 6379, 'db': 2}]
 RQ_DASHBOARD_REDIS_HOST = os.environ.get('REDIS_HOST')
 RQ_DASHBOARD_REDIS_URL = f'redis://{REDIS_HOST}:6379/1'
 RQ_REDIS_URL = f'redis://{REDIS_HOST}:6379/1'
+REDIS_CLIENT = redis.Redis(host=REDIS_HOST, port=6379, db=3)
 
 if APP_ENV == 'test':
-    pass
+    REDIS_CLIENT = fakeredis.FakeStrictRedis()
+
 
 dictConfig({
     'version': 1,
