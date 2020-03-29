@@ -20,7 +20,7 @@ Code can be viewed here https://github.com/dmitrypol/covid19.
 
 <hr>
 
-<table class="table table-bordered table-hover table-sm">
+<table class="table table-bordered table-hover table-striped table-sm">
   <thead class="">
     <tr>
       <th scope="col">State</th>
@@ -31,12 +31,11 @@ Code can be viewed here https://github.com/dmitrypol/covid19.
     {% for item in data %}
       <tr>
         <td>{{ item.state }}</td>
-        <td>{{ item.county }}</td>
+        <td><a href="{{ url_for( 'show', combined_key=item.combined_key ) }}">{{ item.county }}</a></td>
       </tr>
     {% else %}
       <tr>
         <td>no data found</td>
-        <td></td>
         <td></td>
       </tr>
     {% endfor %}

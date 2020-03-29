@@ -10,3 +10,9 @@ RUNNER = APP.test_cli_runner()
 def test_import_data():
     result = RUNNER.invoke(cli.import_data, ['--date', APP.config.get('START_DATE')])
     assert f"imported for {APP.config.get('START_DATE')}" in result.output
+
+
+@vcr.use_cassette('tests/fixtures/vcr_cassettes/import_data.yml')
+def _test_reimport_data():
+    result = RUNNER.invoke(cli.reimport_data)
+    assert f"completed queueing" in result.output

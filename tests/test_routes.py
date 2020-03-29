@@ -14,6 +14,16 @@ def test_index_json(client):
     assert response.status_code == 200
 
 
+def test_show(client):
+    response = client.get(url_for('show', combined_key='key'))
+    assert response.status_code == 200
+
+
+def test_show_json(client):
+    response = client.get(url_for('show', combined_key='key', format='json'))
+    assert response.status_code == 200
+
+
 def test_rq(client):
     response = client.get(url_for('rq_dashboard.overview'))
     assert response.status_code == 401
