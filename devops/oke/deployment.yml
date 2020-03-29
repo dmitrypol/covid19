@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: covid19-deployment
+spec:
+  selector:
+    matchLabels:
+      app: covid19
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: covid19
+    spec:
+      containers:
+      - name: covid19
+        image: iad.ocir.io/bmcdw/covid19_python:latest
+        imagePullPolicy: Always
+        env:
+        - name: APP_ENV
+          value: prod
+        - name: FLASK_ENV
+          value: development
+        - name: FLASK_DEBUG
+          value: '1'
+        - name: FLASK_APP
+          value: app
+      imagePullSecrets:
+        - name: ocir-creds
