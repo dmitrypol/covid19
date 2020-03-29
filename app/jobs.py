@@ -12,7 +12,7 @@ BASE_URL = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/css
 
 @RQ_CLIENT.job()
 def import_data(date=(datetime.today() - timedelta(days=1)).strftime('%m-%d-%Y')):
-    #   '03-22-2020'
+    #   'MM-DD-YYYY'
     logging.info(f'import_data for {date}')
     url = f'{BASE_URL}/{date}.csv'
     dfrm = pd.read_csv(url)

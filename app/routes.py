@@ -10,4 +10,4 @@ def index():
     data = services.get_data()
     if request.args.get('format') == 'json':
         return jsonify(data)
-    return render_template('index.html')
+    return render_template('index.html', data=data)

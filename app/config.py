@@ -11,6 +11,7 @@ LOGS_DIR = f'{HOME_DIR}logs/'
 TMP_DIR = f'{HOME_DIR}tmp/'
 APP_ENV = os.environ.get('APP_ENV', 'dev')
 SECRET_KEY = 'foobar'
+START_DATE = '03-22-2020'   #   date for which there is good data
 
 REDIS_HOST = os.environ.get('REDIS_HOST')
 REDLOCK_CONN = [{'host': REDIS_HOST, 'port': 6379, 'db': 2}]
