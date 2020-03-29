@@ -2,6 +2,7 @@
 # pylint: disable=too-few-public-methods, wrong-import-position, cyclic-import
 import os, logging
 from flask import Flask
+from flask_assets import Environment, Bundle
 from flask_rq2 import RQ
 import rq_dashboard
 from rq_dashboard.cli import add_basic_auth
@@ -20,5 +21,8 @@ APP.register_blueprint(rq_dashboard.blueprint, url_prefix='/rq')
 RQ_CLIENT = RQ(APP)
 REDIS_CLIENT = APP.config.get('REDIS_CLIENT')
 
+ASSETS = Environment(APP)
+JSB = Bundle('main.js', output='tmp/main.js')
+ASSETS.register('js_all', JSB)
 
 from . import cli, routes
