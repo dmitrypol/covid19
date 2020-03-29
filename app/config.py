@@ -17,10 +17,10 @@ REDLOCK_CONN = [{'host': REDIS_HOST, 'port': 6379, 'db': 2}]
 RQ_DASHBOARD_REDIS_HOST = os.environ.get('REDIS_HOST')
 RQ_DASHBOARD_REDIS_URL = f'redis://{REDIS_HOST}:6379/1'
 RQ_REDIS_URL = f'redis://{REDIS_HOST}:6379/1'
-REDIS_CLIENT = redis.Redis(host=REDIS_HOST, port=6379, db=3)
+REDIS_CLIENT = redis.StrictRedis(host=REDIS_HOST, port=6379, db=3, charset='utf-8', decode_responses=True)
 
 if APP_ENV == 'test':
-    REDIS_CLIENT = fakeredis.FakeStrictRedis()
+    REDIS_CLIENT = fakeredis.FakeStrictRedis(decode_responses=True)
 
 
 dictConfig({
