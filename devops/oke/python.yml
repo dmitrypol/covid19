@@ -18,6 +18,8 @@ spec:
         image: iad.ocir.io/bmcdw/covid19_python:latest
         imagePullPolicy: Always
         env:
+        - name: REDIS_HOST
+          value: redis-service.default
         - name: APP_ENV
           value: prod
         - name: FLASK_ENV
@@ -28,3 +30,19 @@ spec:
           value: app
       imagePullSecrets:
         - name: ocir-creds
+---
+  apiVersion: v1
+  kind: Service
+  metadata:
+    name: covid19-service
+    labels:
+      app: covid19
+  spec:
+    type: LoadBalancer
+    ports:
+      - name: web
+        port: 80
+        protocol: TCP
+        targetPort: 5000
+    selector:
+      app: covid19

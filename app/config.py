@@ -9,6 +9,11 @@ TMP_DIR = f'{HOME_DIR}tmp/'
 APP_ENV = os.environ.get('APP_ENV', 'dev')
 SECRET_KEY = 'foobar'
 
+REDIS_HOST = os.environ.get('REDIS_HOST')
+RQ_DASHBOARD_REDIS_HOST = os.environ.get('REDIS_HOST')
+RQ_DASHBOARD_REDIS_URL = f'redis://{REDIS_HOST}:6379/1'
+RQ_REDIS_URL = f'redis://{REDIS_HOST}:6379/1'
+
 if APP_ENV == 'test':
     pass
 

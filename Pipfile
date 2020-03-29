@@ -14,6 +14,10 @@ pytest-cov = "*"
 
 [packages]
 flask = "*"
+rq-dashboard = "*"
+flask-rq2 = "*"
+apscheduler = "*"
+walrus = "*"
 # gunicorn = "*"
 # requests = "*"
 # flask-sqlalchemy = "*"
