@@ -10,6 +10,7 @@ APP_ENV = os.environ.get('APP_ENV', 'dev')
 SECRET_KEY = 'foobar'
 
 REDIS_HOST = os.environ.get('REDIS_HOST')
+REDLOCK_CONN = [{'host': REDIS_HOST, 'port': 6379, 'db': 2}]
 RQ_DASHBOARD_REDIS_HOST = os.environ.get('REDIS_HOST')
 RQ_DASHBOARD_REDIS_URL = f'redis://{REDIS_HOST}:6379/1'
 RQ_REDIS_URL = f'redis://{REDIS_HOST}:6379/1'

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "24885ba3d2a547c0148a49ddc8968d096be730b927a0bfdfc744e3d418b4561b"
+            "sha256": "71fb0637a64435cf7f45dbcf36234b457f426be3bb8cf9c8910653df7acb8918"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -133,6 +133,13 @@
                 "sha256:b205cffd05ebfd0a468db74f0eedbff8df1a7bfc47521516ade4692991bb0833"
             ],
             "version": "==3.4.1"
+        },
+        "redlock-py": {
+            "hashes": [
+                "sha256:0b8722c4843ddeabc2fc1dd37c05859e0da29fbce3bd1f6ecc73c98396f139ac"
+            ],
+            "index": "pypi",
+            "version": "==1.0.8"
         },
         "rq": {
             "hashes": [

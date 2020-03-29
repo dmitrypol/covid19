@@ -3,6 +3,8 @@
 set -m
 
 flask run -h 0.0.0.0 -p 5000 --reload &
+flask sched-start &
+rq worker -c rq_config &
 
 # https://ryanstutorials.net/bash-scripting-tutorial/bash-if-statements.php
 # if [ $CONTAINER_TYPE = 'web' ]
