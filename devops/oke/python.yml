@@ -22,10 +22,6 @@ spec:
           value: redis-service.default
         - name: APP_ENV
           value: prod
-        - name: FLASK_ENV
-          value: development
-        - name: FLASK_DEBUG
-          value: '1'
         - name: FLASK_APP
           value: app
       imagePullSecrets:

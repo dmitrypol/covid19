@@ -4,11 +4,10 @@ import logging
 from datetime import datetime, timedelta
 import pandas as pd
 # from walrus import Database
-from . import APP, RQ_CLIENT
+from . import RQ_CLIENT, REDIS_CLIENT
 
 BASE_URL = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports'
 # WDB = Database(host=APP.config.get('REDIS_HOST'), port=6379, db=3)
-REDIS_CLIENT = APP.config.get('REDIS_CLIENT')
 
 
 @RQ_CLIENT.job()

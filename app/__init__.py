@@ -9,5 +9,6 @@ APP = Flask(__name__)
 APP.config.from_pyfile('config.py')
 APP.register_blueprint(rq_dashboard.blueprint, url_prefix='/rq')
 RQ_CLIENT = RQ(APP)
+REDIS_CLIENT = APP.config.get('REDIS_CLIENT')
 
 from . import cli, routes
