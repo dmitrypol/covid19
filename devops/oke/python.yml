@@ -18,6 +18,16 @@ spec:
         image: iad.ocir.io/bmcdw/covid19_python:latest
         imagePullPolicy: Always
         env:
+        - name: RQ_DASHBOARD_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: covid19-secrets
+              key: RQ_DASHBOARD_USERNAME
+        - name: RQ_DASHBOARD_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: covid19-secrets
+              key: RQ_DASHBOARD_PASSWORD
         - name: REDIS_HOST
           value: redis-service.default
         - name: APP_ENV

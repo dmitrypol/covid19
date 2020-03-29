@@ -15,6 +15,7 @@ services:
     #   foo: bar
     env_file:
       - devops/common.env
+      - devops/secrets.env
 
   redis:
     image: redis:5.0.8-alpine
