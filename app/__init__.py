@@ -3,6 +3,7 @@
 import os, logging
 from flask import Flask
 from flask_assets import Environment, Bundle
+from flask_caching import Cache
 from flask_rq2 import RQ
 import rq_dashboard
 from rq_dashboard.cli import add_basic_auth
@@ -18,8 +19,10 @@ add_basic_auth(
     password=os.environ.get('RQ_DASHBOARD_PASSWORD'),
 )
 APP.register_blueprint(rq_dashboard.blueprint, url_prefix='/rq')
-RQ_CLIENT = RQ(APP)
+
 REDIS_CLIENT = APP.config.get('REDIS_CLIENT')
+RQ_CLIENT = RQ(APP)
+CACHE = Cache(APP)
 
 ASSETS = Environment(APP)
 JSB = Bundle('main.js', output='tmp/main.js')

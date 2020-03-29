@@ -14,15 +14,23 @@ SECRET_KEY = 'foobar'
 START_DATE = '03-22-2020'   #   date for which there is good data
 
 REDIS_HOST = os.environ.get('REDIS_HOST')
-REDLOCK_CONN = [{'host': REDIS_HOST, 'port': 6379, 'db': 2}]
+
+CACHE_DEFAULT_TIMEOUT = 600
+CACHE_TYPE = 'redis'
+CACHE_REDIS_HOST = REDIS_HOST
+CACHE_REDIS_DB = 0
 
 RQ_DASHBOARD_REDIS_HOST = os.environ.get('REDIS_HOST')
 RQ_DASHBOARD_REDIS_URL = f'redis://{REDIS_HOST}:6379/1'
 RQ_REDIS_URL = f'redis://{REDIS_HOST}:6379/1'
 
+REDLOCK_CONN = [{'host': REDIS_HOST, 'port': 6379, 'db': 2}]
+REDIS_JOBSTORE_DB = 2
+
 REDIS_CLIENT = redis.StrictRedis(host=REDIS_HOST, port=6379, db=3, charset='utf-8', decode_responses=True)
 
 if APP_ENV == 'test':
+    CACHE_TYPE = 'null'
     REDIS_CLIENT = fakeredis.FakeStrictRedis(decode_responses=True)
 
 

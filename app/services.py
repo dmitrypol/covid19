@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from . import APP, REDIS_CLIENT
 
 
+#@CACHE.cached(key_prefix='get_data_index')
 def get_data_index():
     keys = REDIS_CLIENT.keys('*')
     output = []

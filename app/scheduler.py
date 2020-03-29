@@ -8,7 +8,7 @@ import redlock
 from . import APP, jobs
 
 
-JOBSTORES = {'default': RedisJobStore(host=APP.config.get('REDIS_HOST'))}
+JOBSTORES = {'default': RedisJobStore(host=APP.config.get('REDIS_HOST'), db=APP.config.get('REDIS_JOBSTORE_DB'))}
 SCHED = BlockingScheduler(jobstores=JOBSTORES)
 #SCHED = BackgroundScheduler(daemon=True, jobstores=JOBSTORES)
 

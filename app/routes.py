@@ -1,10 +1,11 @@
 ''' varous URL routes '''
 import logging
 from flask import request, jsonify, render_template
-from . import APP, services
+from . import APP, CACHE, services
 
 
 @APP.route('/', methods=['GET'])
+@CACHE.cached()
 def index():
     logging.info('index')
     data = services.get_data_index()
