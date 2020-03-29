@@ -24,7 +24,9 @@ def _process_row(row):
     if row.Country_Region == 'US':
         name = row.Combined_Key.replace(' ', '').replace(',', '')
         fdate = _format_date(row.Last_Update)
-        mapping = {'county':row.Admin2, 'state':row.Province_State, 'country':row.Country_Region, fdate:row.Deaths}
+        mapping = {'county':row.Admin2, 'state':row.Province_State, 'country':row.Country_Region,\
+            f'confirmed_{fdate}':row.Confirmed, f'deaths_{fdate}':row.Deaths,\
+            f'recovered_{fdate}':row.Recovered, f'active_{fdate}':row.Active}
         REDIS_CLIENT.hmset(name, mapping)
         # wal_hash = WDB.Hash(key)
         # wal_hash.update(date2=row.Deaths)
