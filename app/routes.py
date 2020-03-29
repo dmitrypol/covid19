@@ -1,5 +1,4 @@
 ''' varous URL routes '''
-# pylint: disable = missing-function-docstring, logging-format-interpolation
 import logging
 from flask import request, jsonify, render_template
 from . import APP

@@ -20,3 +20,7 @@ services:
     image: redis:5.0.8-alpine
     expose:
       - 6379
+    ports:
+      - target: 6379
+        published: 6379
+  

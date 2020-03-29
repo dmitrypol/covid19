@@ -1,9 +1,9 @@
 ''' command line tasks '''
-# pylint: disable = missing-function-docstring, unused-argument, no-member, subprocess-run-check
+# pylint: disable = unused-argument, no-member, subprocess-run-check
 import subprocess
 import click
 # from flask.cli import AppGroup
-from . import APP, scheduler
+from . import APP, scheduler, jobs
 
 # APPG = AppGroup('foo')
 # APP.cli.add_command(APPG)
@@ -18,3 +18,10 @@ def test():
 @APP.cli.command()
 def sched_start():
     scheduler.SCHED.start()
+
+
+@APP.cli.command()
+@click.option('-d', '--date', required=True, help='03-22-2020')
+def import_data(date):
+    jobs.import_data(date)
+    click.echo(click.style(f'imported for {date}', bold=True, fg='blue'))
