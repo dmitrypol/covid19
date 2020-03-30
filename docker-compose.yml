@@ -18,7 +18,8 @@ services:
       - devops/secrets.env
 
   redis:
-    image: redis:5.0.8-alpine
+    #image: redis:5.0.8-alpine
+    image: redislabs/redisjson2:latest
     expose:
       - 6379
     ports:
