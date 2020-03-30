@@ -33,10 +33,10 @@
         },
         "bokeh": {
             "hashes": [
-                "sha256:552aae6844b2b82dc6da77b17f3f0c22f600c181b4e334f4883624665245ac59"
+                "sha256:07b26adfbe9fad4bb53e770d220c4d5d0fff8ef6813aa18222fa348bbdb8994b"
             ],
             "index": "pypi",
-            "version": "==2.0.0"
+            "version": "==2.0.1"
         },
         "click": {
             "hashes": [

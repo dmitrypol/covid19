@@ -3,11 +3,9 @@
 import logging
 from datetime import datetime, timedelta
 import pandas as pd
-# from walrus import Database
 from . import RQ_CLIENT, REDIS_CLIENT
 
 BASE_URL = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports'
-# WDB = Database(host=APP.config.get('REDIS_HOST'), port=6379, db=3)
 
 
 @RQ_CLIENT.job()
@@ -21,15 +19,18 @@ def import_data(date=(datetime.today() - timedelta(days=1)).strftime('%m-%d-%Y')
 
 
 def _process_row(row):
-    if row.Country_Region == 'US':
+    if row.Country_Region == 'US' and pd.notnull(row.Admin2):
         name = row.Combined_Key.replace(' ', '').replace(',', '')
         fdate = _format_date(row.Last_Update)
-        mapping = {'county':row.Admin2, 'state':row.Province_State, 'country':row.Country_Region,\
-            f'confirmed_{fdate}':row.Confirmed, f'deaths_{fdate}':row.Deaths,\
-            f'recovered_{fdate}':row.Recovered, f'active_{fdate}':row.Active}
+        mapping = {
+            'county':row.Admin2, 'state':row.Province_State, 'country':row.Country_Region,
+            f'confirmed_{fdate}':   row.Confirmed,
+            f'deaths_{fdate}':      row.Deaths,
+            f'recovered_{fdate}':   row.Recovered,
+            f'active_{fdate}':      row.Active,
+        }
         REDIS_CLIENT.hmset(name, mapping)
-        # wal_hash = WDB.Hash(key)
-        # wal_hash.update(date2=row.Deaths)
+
 
 
 def _format_date(last_update):

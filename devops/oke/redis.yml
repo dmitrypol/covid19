@@ -15,8 +15,8 @@ spec:
     spec:
       containers:
       - name: redis
-        #image: redis:5.0.8-alpine
-        image: redislabs/redisjson2:latest
+        image: redis:5.0.8-alpine
+        #image: redislabs/redisjson2:latest
         ports:
         - containerPort: 6379
 ---
