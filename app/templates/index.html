@@ -33,7 +33,7 @@
     {% for item in data %}
       <tr>
         <td>{{ item.state }}</td>
-        <td><a href="{{ url_for( 'show', combined_key=item.combined_key ) }}">{{ item.county }}</a></td>
+        <td><a href="{{ url_for( 'show', name=item.name ) }}">{{ item.county }}</a></td>
       </tr>
     {% else %}
       <tr>

@@ -1,7 +1,7 @@
 import os, base64
 import pytest
 from flask import url_for
-from app import APP
+from app import APP, models
 
 
 def test_index(client):
@@ -9,18 +9,20 @@ def test_index(client):
     assert response.status_code == 200
 
 
-def test_index_json(client):
+def _test_index_json(client):
     response = client.get(url_for('index', format='json'))
     assert response.status_code == 200
 
 
 def test_show(client):
-    response = client.get(url_for('show', combined_key='key'))
+    models.Location.create(name='KingWashingtonUS')
+    response = client.get(url_for('show', name='KingWashingtonUS'))
     assert response.status_code == 200
 
 
-def test_show_json(client):
-    response = client.get(url_for('show', combined_key='key', format='json'))
+def _test_show_json(client):
+    models.Location.create(name='KingWashingtonUS')
+    response = client.get(url_for('show', name='KingWashingtonUS', format='json'))
     assert response.status_code == 200
 
 

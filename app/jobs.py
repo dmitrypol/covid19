@@ -3,7 +3,7 @@
 import logging
 from datetime import datetime, timedelta
 import pandas as pd
-from . import RQ_CLIENT, REDIS_CLIENT
+from . import RQ_CLIENT, models
 
 BASE_URL = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports'
 
@@ -22,15 +22,12 @@ def _process_row(row):
     if row.Country_Region == 'US' and pd.notnull(row.Admin2):
         name = row.Combined_Key.replace(' ', '').replace(',', '')
         fdate = _format_date(row.Last_Update)
-        mapping = {
-            'county':row.Admin2, 'state':row.Province_State, 'country':row.Country_Region,
-            f'confirmed_{fdate}':   row.Confirmed,
-            f'deaths_{fdate}':      row.Deaths,
-            f'recovered_{fdate}':   row.Recovered,
-            f'active_{fdate}':      row.Active,
-        }
-        REDIS_CLIENT.hmset(name, mapping)
-
+        obj = models.Location.create(name=name, county=row.Admin2, state=row.Province_State, country=row.Country_Region)
+        obj.confirmed.update({fdate:row.Confirmed})
+        obj.deaths.update({fdate:row.Deaths})
+        obj.recovered.update({fdate:row.Recovered})
+        obj.active.update({fdate:row.Active})
+        obj.save()
 
 
 def _format_date(last_update):

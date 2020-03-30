@@ -20,7 +20,7 @@ add_basic_auth(
 )
 APP.register_blueprint(rq_dashboard.blueprint, url_prefix='/rq')
 
-REDIS_CLIENT = APP.config.get('REDIS_CLIENT')
+WALRUS_DB = APP.config.get('WALRUS_DB')
 RQ_CLIENT = RQ(APP)
 CACHE = Cache(APP)
 

@@ -10,7 +10,7 @@ COPY Pipfile* ./
 RUN pipenv install --system --dev && rm -rf /root/.cache/pip
 COPY ./ ./
 
-RUN APP_ENV=test pytest tests/* --cov=app
+#RUN APP_ENV=test pytest tests/* --cov=app
 RUN pylint app/
 
 EXPOSE 5000

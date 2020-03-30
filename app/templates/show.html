@@ -1,6 +1,47 @@
 {% extends "layout.html" %}
 {% block content %}
 
-{{ data }}
+{{ data.county }}, {{ data.state }}, {{ data.country }}<br>
+
+<hr>
+
+confirmed
+
+{% for item in data.confirmed %}
+    {{ item }}
+{% else %}
+    no confirmed
+{% endfor %}
+
+<hr>
+
+deaths
+
+{% for item in data.deaths %}
+    {{ item }}
+{% else %}
+    no deaths found
+{% endfor %}
+
+<hr>
+
+recovered
+
+{% for item in data.recovered %}
+    {{ item }}
+{% else %}
+    no recovered
+{% endfor %}
+
+<hr>
+
+active
+
+{% for item in data.active %}
+    {{ item }}
+{% else %}
+    no active
+{% endfor %}
+
   
 {% endblock %}

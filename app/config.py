@@ -1,8 +1,8 @@
 ''' config settings '''
 import os
 from logging.config import dictConfig
-import redis
-import fakeredis
+#import redis, fakeredis
+from walrus import Database
 
 
 APP_NAME = os.environ.get('app_name')
@@ -27,11 +27,14 @@ RQ_REDIS_URL = f'redis://{REDIS_HOST}:6379/1'
 REDLOCK_CONN = [{'host': REDIS_HOST, 'port': 6379, 'db': 2}]
 REDIS_JOBSTORE_DB = 2
 
-REDIS_CLIENT = redis.StrictRedis(host=REDIS_HOST, port=6379, db=3, charset='utf-8', decode_responses=True)
+#REDIS_CLIENT = redis.StrictRedis(host=REDIS_HOST, port=6379, db=3, charset='utf-8', decode_responses=True)
+WALRUS_DB = Database(host=REDIS_HOST, port=6379, db=3, decode_responses=True)
+
 
 if APP_ENV == 'test':
     CACHE_TYPE = 'null'
-    REDIS_CLIENT = fakeredis.FakeStrictRedis(decode_responses=True)
+    #REDIS_CLIENT = fakeredis.FakeStrictRedis(decode_responses=True)
+    WALRUS_DB = Database(host=REDIS_HOST, port=6379, db=15, decode_responses=True)
 
 
 dictConfig({
