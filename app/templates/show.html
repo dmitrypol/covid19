@@ -3,8 +3,10 @@
 
 {{ data.county }}, {{ data.state }}, {{ data.country }}<br>
 
-<hr>
+{% line_chart chart_data %}
 
+<hr>
+<!--
 confirmed
 
 {% for item in data.confirmed %}
@@ -42,6 +44,6 @@ active
 {% else %}
     no active
 {% endfor %}
-
+-->
   
 {% endblock %}

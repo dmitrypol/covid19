@@ -1,12 +1,13 @@
-''' app initializer  '''
-# pylint: disable=too-few-public-methods, wrong-import-position, cyclic-import
+''' app initializer '''
+# pylint: disable=too-few-public-methods, wrong-import-position, cyclic-import, no-member
 import os, logging
-from flask import Flask
+from flask import Flask, Blueprint
 from flask_assets import Environment, Bundle
 from flask_caching import Cache
 from flask_rq2 import RQ
 import rq_dashboard
 from rq_dashboard.cli import add_basic_auth
+import chartkick
 
 
 APP = Flask(__name__)
@@ -27,5 +28,10 @@ CACHE = Cache(APP)
 ASSETS = Environment(APP)
 JSB = Bundle('main.js', output='tmp/main.js')
 ASSETS.register('js_all', JSB)
+
+CK = Blueprint('ck_page', __name__, static_folder=chartkick.js(), static_url_path='/static')
+APP.register_blueprint(CK, url_prefix='/ck')
+APP.jinja_env.add_extension("chartkick.ext.charts")
+
 
 from . import cli, routes
