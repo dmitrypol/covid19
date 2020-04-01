@@ -1,49 +1,21 @@
 {% extends "layout.html" %}
 {% block content %}
 
-{{ data.county }}, {{ data.state }}, {{ data.country }}<br>
+<h3>{{ data.county }} County, {{ data.state }}, {{ data.country }}</h3>
 
-{% line_chart chart_data %}
-
-<hr>
-<!--
-confirmed
-
-{% for item in data.confirmed %}
-    {{ item }}
-{% else %}
-    no confirmed
-{% endfor %}
+<div class="alert alert-primary" role="alert">
+    John Hopkins is providing granular data starting March 22, hence the spike at the beginning.
+    <br>
+    From then on the charts show the NEW cases for that day (NOT cumulative).
+</div>
 
 <hr>
 
-deaths
-
-{% for item in data.deaths %}
-    {{ item }}
-{% else %}
-    no deaths found
+{% for key, value in chart_data.items() %}
+    <b>{{ key }}</b>
+    {% line_chart value %}<br>
 {% endfor %}
 
 <hr>
-
-recovered
-
-{% for item in data.recovered %}
-    {{ item }}
-{% else %}
-    no recovered
-{% endfor %}
-
-<hr>
-
-active
-
-{% for item in data.active %}
-    {{ item }}
-{% else %}
-    no active
-{% endfor %}
--->
   
 {% endblock %}

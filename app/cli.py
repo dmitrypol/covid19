@@ -12,7 +12,7 @@ from . import APP, scheduler, jobs, services
 @APP.cli.command()
 def test():
     subprocess.run('APP_ENV=test pytest tests/* --cov=app && coverage html', shell=True)
-    click.echo(click.style('test', bold=True, fg='blue'))
+    click.echo(click.style('test completed', bold=True, fg='blue'))
 
 
 @APP.cli.command()

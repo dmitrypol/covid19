@@ -1,6 +1,6 @@
 ''' jobs '''
 # pylint: disable = pointless-string-statement
-import logging
+import logging, urllib
 from datetime import datetime, timedelta
 import pandas as pd
 from . import RQ_CLIENT, models
@@ -9,13 +9,16 @@ BASE_URL = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/css
 
 
 @RQ_CLIENT.job()
-def import_data(date=(datetime.today() - timedelta(days=1)).strftime('%m-%d-%Y')):
+def import_data(date=(datetime.today() - timedelta(days=0)).strftime('%m-%d-%Y')):
     #   'MM-DD-YYYY'
     logging.info(f'import_data for {date}')
     url = f'{BASE_URL}/{date}.csv'
-    dfrm = pd.read_csv(url)
-    for _, row in dfrm.iterrows():
-        _process_row(row)
+    try:
+        dfrm = pd.read_csv(url)
+        for _, row in dfrm.iterrows():
+            _process_row(row)
+    except urllib.error.HTTPError:
+        pass
 
 
 def _process_row(row):

@@ -3,8 +3,9 @@
 import logging, time
 from apscheduler.jobstores.redis import RedisJobStore
 from apscheduler.schedulers.blocking import BlockingScheduler
-import redlock
 #from apscheduler.schedulers.background import BackgroundScheduler
+import redlock
+import requests
 from . import APP, jobs
 
 
@@ -17,14 +18,27 @@ DLM = redlock.Redlock(APP.config.get('REDLOCK_CONN'))
 
 
 # @SCHED.scheduled_job('interval', hours=1)
-def schedule_jobs():
+def import_data():
     try:
-        my_lock = DLM.lock('schedule_jobs', 10000)  #   in milliseconds
+        my_lock = DLM.lock('import_data', 10000)  #   in milliseconds
         if my_lock:
             jobs.import_data.queue()
-            logging.info('schedule_jobs')
+            logging.info('import_data')
             time.sleep(1)
             DLM.unlock(my_lock)
     except redlock.MultipleRedlockException as exc:
         logging.error(exc)
-SCHED.add_job(schedule_jobs, 'cron', hour='*')
+SCHED.add_job(import_data, 'cron', hour='*')
+
+
+def refresh_hp():
+    try:
+        my_lock = DLM.lock('refresh_hp', 10000)  #   in milliseconds
+        if my_lock:
+            requests.get('http://localhost:5000')
+            logging.info('refresh_hp')
+            time.sleep(1)
+            DLM.unlock(my_lock)
+    except redlock.MultipleRedlockException as exc:
+        logging.error(exc)
+SCHED.add_job(refresh_hp, 'interval', seconds=APP.config.get('CACHE_DEFAULT_TIMEOUT'))

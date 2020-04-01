@@ -1,7 +1,7 @@
 ''' varous URL routes '''
 import logging
 from flask import render_template
-from . import APP, CACHE, models
+from . import APP, CACHE, models, services
 
 
 @APP.route('/', methods=['GET'])
@@ -18,26 +18,7 @@ def index():
 def show(name):
     logging.info(f'show {name}')
     data = models.Location.load(name)
-
-    confirmed = []
-    for item in data.confirmed.items():
-        confirmed.append(list(item))
-    deaths = []
-    for item in data.deaths.items():
-        deaths.append(list(item))
-    recovered = []
-    for item in data.recovered.items():
-        recovered.append(list(item))
-    active = []
-    for item in data.active.items():
-        active.append(list(item))
-    chart_data = [
-        {'name': 'confirmed', 'data': confirmed},
-        {'name': 'deaths', 'data': deaths},
-        {'name': 'recovered', 'data': recovered},
-        {'name': 'active', 'data': active},
-        ]
-
+    chart_data = services.format_chart_data(data)
     # if request.args.get('format') == 'json':
     #     return jsonify(data)
     return render_template('show.html', data=data, chart_data=chart_data)
