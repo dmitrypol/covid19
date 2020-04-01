@@ -21,14 +21,18 @@ def format_chart_data(data):
     deaths = []
     for item in data.deaths.items():
         deaths.append(list(item))
-    recovered = []
-    for item in data.recovered.items():
-        recovered.append(list(item))
-    active = []
-    for item in data.active.items():
-        active.append(list(item))
-    return {'confirmed cases':row_date_diff(confirmed), 'number of deaths':row_date_diff(deaths),\
-        'recovered cases':row_date_diff(recovered), 'active cases':row_date_diff(active)}
+    # recovered = []
+    # for item in data.recovered.items():
+    #     recovered.append(list(item))
+    # active = []
+    # for item in data.active.items():
+    #     active.append(list(item))
+    return {
+        'confirmed':row_date_diff(confirmed),
+        'deaths':row_date_diff(deaths),
+        # 'recovered cases':row_date_diff(recovered),
+        # 'active cases':row_date_diff(active)
+        }
 
 
 def row_date_diff(row):

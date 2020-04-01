@@ -1,21 +1,31 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h3>{{ data.county }} County, {{ data.state }}, {{ data.country }}</h3>
 
 <div class="alert alert-primary" role="alert">
-    John Hopkins is providing granular data starting March 22, hence the spike at the beginning.
+    <h3>{{ data.county }} County, {{ data.state }}, {{ data.country }}</h3>
+
+    Johns Hopkins CSSE is providing granular data starting March 22 so that date shows total at that point.
     <br>
     From then on the charts show the NEW cases for that day (NOT cumulative).
 </div>
 
 <hr>
 
-{% for key, value in chart_data.items() %}
-    <b>{{ key }}</b>
-    {% line_chart value %}<br>
-{% endfor %}
+<h4>Confirmed cases</h4>
+<span class="badge badge-warning">
+    Total {{ data.last_confirmed() }}
+</span>
+{% line_chart chart_data['confirmed'] %}<br>
+<br>
+
+<h4>Number of deaths</h4>
+<span class="badge badge-danger">
+    Total {{ data.last_deaths() }}    
+</span>
+{% line_chart chart_data['deaths'] %}<br>
+<br>
 
 <hr>
-  
+
 {% endblock %}

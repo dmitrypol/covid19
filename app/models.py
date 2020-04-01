@@ -14,3 +14,13 @@ class Location(Model):
     deaths = HashField()
     recovered = HashField()
     active = HashField()
+
+
+    def last_confirmed(self):
+        key = self.confirmed.keys()[-1]
+        return self.confirmed[key]
+
+
+    def last_deaths(self):
+        key = self.deaths.keys()[-1]
+        return self.deaths[key]
