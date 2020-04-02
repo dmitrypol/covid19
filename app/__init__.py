@@ -4,6 +4,7 @@ import os, logging
 from flask import Flask, Blueprint
 from flask_assets import Environment, Bundle
 from flask_caching import Cache
+from flask_marshmallow import Marshmallow
 from flask_rq2 import RQ
 import rq_dashboard
 from rq_dashboard.cli import add_basic_auth
@@ -12,6 +13,7 @@ import chartkick
 
 APP = Flask(__name__)
 APP.config.from_pyfile('config.py')
+MA = Marshmallow(APP)
 
 #   https://github.com/metabolize/rq-dashboard-on-heroku/blob/master/app.py#L10-L16
 add_basic_auth(

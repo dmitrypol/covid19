@@ -36,6 +36,7 @@ def refresh_hp():
         my_lock = DLM.lock('refresh_hp', 10000)  #   in milliseconds
         if my_lock:
             requests.get('http://localhost:5000')
+            requests.get('http://localhost:5000?format=json')
             logging.info('refresh_hp')
             time.sleep(1)
             DLM.unlock(my_lock)

@@ -4,12 +4,17 @@ from flask import url_for
 from app import APP, models
 
 
+def test_404(client):
+    response = client.get('/invalid/url')
+    assert response.status_code == 302
+
+
 def test_index(client):
     response = client.get(url_for('index'))
     assert response.status_code == 200
 
 
-def _test_index_json(client):
+def test_index_json(client):
     response = client.get(url_for('index', format='json'))
     assert response.status_code == 200
 
@@ -20,10 +25,15 @@ def test_show(client):
     assert response.status_code == 200
 
 
-def _test_show_json(client):
+def test_show_json(client):
     models.Location.create(name='KingWashingtonUS')
     response = client.get(url_for('show', name='KingWashingtonUS', format='json'))
     assert response.status_code == 200
+
+
+def _test_show_object_not_found(client):
+    response = client.get(url_for('show', name='invalid'))
+    assert response.status_code == 302
 
 
 def test_rq(client):

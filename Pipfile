@@ -16,13 +16,16 @@ freezegun = "*"
 
 [packages]
 flask = "*"
+gunicorn = "*"
 # flask-wtf = "*"
 flask-assets = "*"
+flask-marshmallow = "*"
 pandas = "*"
+requests = "*"
 chartkick = "*"
 # dash = "*"
 # bokeh = "*"
-gunicorn = "*"
+
 #   redis
 flask-caching = "*"
 rq-dashboard = "*"
@@ -32,7 +35,7 @@ redlock-py = "*"
 walrus = "*"
 # leaderboard = "*"
 # rejson = "*"
-requests = "*"
+
 # flask-sqlalchemy = "*"
 # flask-migrate = "*"
 # flask-marshmallow = "*"
