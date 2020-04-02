@@ -28,8 +28,6 @@ def _process_row(row):
         obj = models.Location.create(name=name, county=row.Admin2, state=row.Province_State, country=row.Country_Region)
         obj.confirmed.update({fdate:row.Confirmed})
         obj.deaths.update({fdate:row.Deaths})
-        obj.recovered.update({fdate:row.Recovered})
-        obj.active.update({fdate:row.Active})
         obj.save()
 
 

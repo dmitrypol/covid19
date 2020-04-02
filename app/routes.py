@@ -2,7 +2,7 @@
 import logging
 from flask import request, redirect, url_for
 from flask import render_template
-from . import APP, CACHE, models, services, schemas
+from . import APP, CACHE, models, schemas
 
 
 @APP.errorhandler(404)
@@ -15,19 +15,18 @@ def error_404(exc):
 @CACHE.cached(query_string=True)
 def index():
     logging.info('index')
-    data = models.Location.all()
+    objs = models.Location.all()
     if request.args.get('format') == 'json':
         #   https://github.com/marshmallow-code/flask-marshmallow/issues/50
         schema = schemas.Location(many=True, only=('name', 'county', 'state', 'country'))
-        return schema.dumps(data)
-    return render_template('index.html', data=data)
+        return schema.dumps(objs)
+    return render_template('index.html', objs=objs)
 
 
 @APP.route('/<string:name>', methods=['GET'])
 def show(name):
     logging.info(f'show {name}')
-    data = models.Location.load(name)
-    chart_data = services.format_chart_data(data)
+    obj = models.Location.load(name)
     if request.args.get('format') == 'json':
-        return schemas.Location().dumps(data)
-    return render_template('show.html', data=data, chart_data=chart_data)
+        return schemas.Location().dumps(obj)
+    return render_template('show.html', obj=obj, chart_data=obj.format_chart_data())
