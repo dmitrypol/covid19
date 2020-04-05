@@ -27,10 +27,10 @@ class Location(Model):
 
     def format_chart_data(self):
         confirmed = []
-        for item in self.confirmed.items():
+        for item in sorted(self.confirmed.items()):
             confirmed.append(list(item))
         deaths = []
-        for item in self.deaths.items():
+        for item in sorted(self.deaths.items()):
             deaths.append(list(item))
         return {
             'confirmed':self._row_date_diff(confirmed),

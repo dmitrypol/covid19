@@ -3,6 +3,11 @@ import vcr
 from app import APP, jobs
 
 
+def test_get_url():
+    test = jobs.get_url('http://localhost:5000')
+    assert test is None
+
+
 @vcr.use_cassette('tests/fixtures/vcr_cassettes/import_data.yml')
 def test_import_data():
     test = jobs.import_data(date=APP.config.get('START_DATE'))

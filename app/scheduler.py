@@ -5,13 +5,13 @@ from apscheduler.jobstores.redis import RedisJobStore
 from apscheduler.schedulers.blocking import BlockingScheduler
 #from apscheduler.schedulers.background import BackgroundScheduler
 import redlock
-import requests
 from . import APP, jobs
 
 
 JOBSTORES = {'default': RedisJobStore(host=APP.config.get('REDIS_HOST'), db=APP.config.get('REDIS_JOBSTORE_DB'))}
 SCHED = BlockingScheduler(jobstores=JOBSTORES)
 #SCHED = BackgroundScheduler(daemon=True, jobstores=JOBSTORES)
+logging.getLogger('apscheduler').setLevel(logging.WARNING)
 
 #   https://github.com/SPSCommerce/redlock-py
 DLM = redlock.Redlock(APP.config.get('REDLOCK_CONN'))
@@ -35,8 +35,8 @@ def refresh_hp():
     try:
         my_lock = DLM.lock('refresh_hp', 10000)  #   in milliseconds
         if my_lock:
-            requests.get('http://localhost:5000')
-            requests.get('http://localhost:5000?format=json')
+            jobs.get_url('http://localhost:5000')
+            jobs.get_url('http://localhost:5000?format=json')
             logging.info('refresh_hp')
             time.sleep(1)
             DLM.unlock(my_lock)

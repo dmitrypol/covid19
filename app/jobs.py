@@ -3,16 +3,21 @@
 import logging, urllib
 from datetime import datetime, timedelta
 import pandas as pd
+import requests
 from . import RQ_CLIENT, models
-
-BASE_URL = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports'
 
 
 @RQ_CLIENT.job()
-def import_data(date=(datetime.today() - timedelta(days=0)).strftime('%m-%d-%Y')):
+def get_url(url):
+    requests.get(url)
+
+
+@RQ_CLIENT.job()
+def import_data(date=(datetime.today() - timedelta(days=1)).strftime('%m-%d-%Y')):
     #   'MM-DD-YYYY'
     logging.info(f'import_data for {date}')
-    url = f'{BASE_URL}/{date}.csv'
+    base_url = 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports'
+    url = f'{base_url}/{date}.csv'
     try:
         dfrm = pd.read_csv(url)
         for _, row in dfrm.iterrows():
