@@ -14,14 +14,14 @@
 
 <h4>Confirmed cases</h4>
 <span class="badge badge-warning">
-    Total {{ obj.last_confirmed() }}
+    Total {{ last_confirmed }}
 </span>
 {% line_chart chart_data['confirmed'] %}<br>
 <br>
 
 <h4>Number of deaths</h4>
 <span class="badge badge-danger">
-    Total {{ obj.last_deaths() }}    
+    Total {{ last_deaths }}    
 </span>
 {% line_chart chart_data['deaths'] %}<br>
 <br>

@@ -2,7 +2,7 @@
 import logging
 from flask import request, redirect, url_for
 from flask import render_template
-from . import APP, CACHE, models, schemas
+from . import APP, CACHE, models, schemas, decorators
 
 
 @APP.errorhandler(404)
@@ -29,4 +29,5 @@ def show(name):
     obj = models.Location.load(name)
     if request.args.get('format') == 'json':
         return schemas.Location().dumps(obj)
-    return render_template('show.html', obj=obj, chart_data=obj.format_chart_data())
+    return render_template('show.html', obj=obj, chart_data=decorators.format_chart_data(obj),\
+        last_confirmed=decorators.last_confirmed(obj), last_deaths=decorators.last_deaths(obj))

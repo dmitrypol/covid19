@@ -27,7 +27,7 @@ def import_data():
             time.sleep(1)
             DLM.unlock(my_lock)
     except redlock.MultipleRedlockException as exc:
-        logging.error(exc)
+        logging.exception(exc)
 SCHED.add_job(import_data, 'cron', hour='*')
 
 
@@ -41,5 +41,5 @@ def refresh_hp():
             time.sleep(1)
             DLM.unlock(my_lock)
     except redlock.MultipleRedlockException as exc:
-        logging.error(exc)
+        logging.exception(exc)
 SCHED.add_job(refresh_hp, 'interval', seconds=APP.config.get('CACHE_DEFAULT_TIMEOUT'))

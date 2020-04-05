@@ -1,7 +1,7 @@
 ''' varous schemas '''
 # pylint: disable = no-self-use, too-few-public-methods
 from flask_marshmallow.fields import fields
-from . import MA
+from . import MA, decorators
 
 
 class Location(MA.Schema):
@@ -19,15 +19,15 @@ class Location(MA.Schema):
 
 
     def obj_chart_data(self, obj):
-        return obj.format_chart_data()
+        return decorators.format_chart_data(obj)
 
 
     def obj_last_confirmed(self, obj):
-        return obj.last_confirmed()
+        return decorators.last_confirmed(obj)
 
 
     def obj_last_deaths(self, obj):
-        return obj.last_deaths()
+        return decorators.last_deaths(obj)
 
 
     # def obj_confirmed(self, obj):
