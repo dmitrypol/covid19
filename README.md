@@ -1,8 +1,15 @@
-# prod setup
+# using Redis with Python to analyze COVID19 data
 
-kubectl create secret generic covid19-secrets --from-env-file=devops/secrets.env
+* Redlock for distributed lock management
+* Redis as a job queue to scale data processing
+* Redis with Python Pandas for Data Science.  Data is stored in Redis Hashes which translate into Panda DataFrames
 
-kubectl proxy
+## Setup dev environment
 
-http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/#!/login
-
+* Install Docker and Docker Compose https://docs.docker.com/compose/install/
+* Clone this repo
+* docker-compose up --build -d
+* Run `devops/reimport_data.sh` to import data for all dates
+* Browse to http://localhost:5000/ to view dashboard
+* Browse to http://localhost:5000/rq/ to view jobs running
+* Data is sourced from https://github.com/CSSEGISandData/COVID-19, by Johns Hopkins CSSE
