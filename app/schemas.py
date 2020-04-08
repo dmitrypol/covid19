@@ -19,15 +19,15 @@ class Location(MA.Schema):
 
 
     def obj_chart_data(self, obj):
-        return decorators.format_chart_data(obj)
+        return decorators.format_chart_data([obj])
 
 
     def obj_last_confirmed(self, obj):
-        return decorators.last_confirmed(obj)
+        return decorators.last_confirmed([obj])
 
 
     def obj_last_deaths(self, obj):
-        return decorators.last_deaths(obj)
+        return decorators.last_deaths([obj])
 
 
     # def obj_confirmed(self, obj):

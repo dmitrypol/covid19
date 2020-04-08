@@ -8,8 +8,8 @@ class Location(Model):
     __database__ = WALRUS_DB
     # __namespace__ = 'my-app'
     name = TextField(primary_key=True)
-    county = TextField(index=False)
-    state = TextField(index=False)
-    country = TextField(index=False)
+    county = TextField()
+    state = TextField(index=True)
+    country = TextField()
     confirmed = HashField()
     deaths = HashField()

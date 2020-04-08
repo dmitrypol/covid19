@@ -15,7 +15,7 @@ def error_404(exc):
 @CACHE.cached(query_string=True)
 def index():
     logging.info('index')
-    objs = models.Location.all()
+    objs = models.Location.query(order_by=models.Location.state)
     if request.args.get('format') == 'json':
         #   https://github.com/marshmallow-code/flask-marshmallow/issues/50
         schema = schemas.Location(many=True, only=('name', 'county', 'state', 'country'))
@@ -29,5 +29,5 @@ def show(name):
     obj = models.Location.load(name)
     if request.args.get('format') == 'json':
         return schemas.Location().dumps(obj)
-    return render_template('show.html', obj=obj, chart_data=decorators.format_chart_data(obj),\
-        last_confirmed=decorators.last_confirmed(obj), last_deaths=decorators.last_deaths(obj))
+    return render_template('show.html', obj=obj, chart_data=decorators.format_chart_data([obj]),\
+        last_confirmed=decorators.last_confirmed([obj]), last_deaths=decorators.last_deaths([obj]))

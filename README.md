@@ -8,8 +8,10 @@
 
 * Install Docker and Docker Compose https://docs.docker.com/compose/install/
 * Clone this repo
+* `cp devops/secrets.env.sample devops/secrets.env` and specify values in it
 * docker-compose up --build -d
 * Run `devops/reimport_data.sh` to import data for all dates
+* Run `devops/test.sh` to run all unit tests
 * Browse to http://localhost:5000/ to view dashboard
 * Browse to http://localhost:5000/rq/ to view jobs running
 * Data is sourced from https://github.com/CSSEGISandData/COVID-19, by Johns Hopkins CSSE
