@@ -1,4 +1,4 @@
-''' decorators for models '''
+''' formatting data for models '''
 import pandas as pd
 
 
