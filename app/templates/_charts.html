@@ -10,15 +10,16 @@
 
 <h4>Confirmed cases</h4>
 <span class="badge badge-warning">
-    Total {{ last_confirmed }}
+    <h6>Total {{ last_confirmed }}</h6>
 </span>
 {% line_chart chart_data['confirmed'] %}<br>
 <br>
 
 <h4>Number of deaths</h4>
 <span class="badge badge-danger">
-    Total {{ last_deaths }}    
+    <h6>Total {{ last_deaths }}</h6>
 </span>
 {% line_chart chart_data['deaths'] %}<br>
 <br>
 
+<hr>

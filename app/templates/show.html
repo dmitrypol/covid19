@@ -1,8 +1,22 @@
 {% extends "layout.html" %}
 {% block content %}
 
+{# this will show up on county page, not state #}
+{% if obj %}
+    <button type="button" class="btn btn-info">
+        <a href="{{ url_for( 'show', name=obj.state ) }}">Back to {{ obj.state }} state</a>
+    </button>
+    <hr>
+{% endif %}
+
 {% include '_charts.html' %}
 
-<hr>
+{# this will show up on state page, not county #}
+{% if objs %}
+    <div class="alert alert-primary" role="alert">
+    To get data for specific county search for that county and click the links.
+    </div>
+    {% include '_table.html' %}
+{% endif %}
 
 {% endblock %}

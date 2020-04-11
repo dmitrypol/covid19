@@ -36,7 +36,7 @@ def show(name):
         obj = models.Location.load(name)
         if request.args.get('format') == 'json':
             return schemas.Location().dumps(obj)
-        return render_template('show.html', heading=f'{obj.county} County, {obj.state}, {obj.country}',
+        return render_template('show.html', obj=obj, heading=f'{obj.county} County, {obj.state}, {obj.country}',
                                chart_data=formatters.format_chart_data([obj]),
                                last_confirmed=formatters.last_confirmed([obj]),
                                last_deaths=formatters.last_deaths([obj]),
@@ -48,7 +48,7 @@ def show(name):
             schema = schemas.Location(many=True)
             return schema.dumps(objs)
         list_objs = list(objs)
-        return render_template('show.html', heading=f'{name} State',
+        return render_template('show.html', objs=list_objs, heading=f'{name} State',
                                chart_data=formatters.format_chart_data(list_objs),
                                last_confirmed=formatters.last_confirmed(list_objs),
                                last_deaths=formatters.last_deaths(list_objs)

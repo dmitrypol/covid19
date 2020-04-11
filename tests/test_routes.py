@@ -20,7 +20,7 @@ def test_index_json(client):
 
 
 def test_show(client):
-    models.Location.create(name='KingWashingtonUS')
+    models.Location.create(name='KingWashingtonUS', state='Washington')
     response = client.get(url_for('show', name='KingWashingtonUS'))
     assert response.status_code == 200
 

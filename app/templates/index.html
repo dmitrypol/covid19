@@ -5,37 +5,12 @@
   This dashboard is meant to analyze COVID19 information as cases per day for specific areas (US, states and counties). 
 </div>
 
+{% include '_charts.html' %}
+
 <div class="alert alert-primary" role="alert">
   To get data for specific county or state search for that county or state and click the links.
 </div>
-
-<table id="index_table" class="table table-bordered table-hover table-striped">
-  <thead class="">
-    <tr>
-      <th scope="col">State</th>
-      <th scope="col">County</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for obj in objs %}
-      <tr>
-        <td><a href="{{ url_for( 'show', name=obj.state ) }}">{{ obj.state }}</a></td>
-        <td><a href="{{ url_for( 'show', name=obj.name ) }}">{{ obj.county }}</a></td>
-      </tr>
-    {% else %}
-      <tr>
-        <td>no data found</td>
-        <td></td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
-
-<hr>
-
-{% include '_charts.html' %}
-
-<hr>
+{% include '_table.html' %}
 
 <div class="alert alert-primary" role="alert">
   Data is sourced from <a  href="https://github.com/CSSEGISandData/COVID-19">https://github.com/CSSEGISandData/COVID-19</a> by Johns Hopkins CSSE.  

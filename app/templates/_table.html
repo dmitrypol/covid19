@@ -1,0 +1,23 @@
+<table id="index_table" class="table table-bordered table-hover table-striped">
+    <thead class="">
+      <tr>
+        <th scope="col">State</th>
+        <th scope="col">County</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for obj in objs %}
+        <tr>
+          <td><a href="{{ url_for( 'show', name=obj.state ) }}">{{ obj.state }}</a></td>
+          <td><a href="{{ url_for( 'show', name=obj.name ) }}">{{ obj.county }}</a></td>
+        </tr>
+      {% else %}
+        <tr>
+          <td>no data found</td>
+          <td></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+</table>
+
+<hr>
