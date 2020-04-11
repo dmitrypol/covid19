@@ -11,12 +11,34 @@ services:
     ports:
       - target: 5000
         published: 5000
-    # environment:
-    #   foo: bar
+    environment:
+      CONTAINER_TYPE: web
     env_file:
       - devops/common.env
       - devops/secrets.env
 
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/opt/covid19
+    environment:
+      CONTAINER_TYPE: worker
+    env_file:
+      - devops/common.env
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/opt/covid19
+    environment:
+      CONTAINER_TYPE: scheduler
+    env_file:
+      - devops/common.env
+      
   redis:
     image: redis:5.0.8-alpine
     #image: redislabs/redisjson2:latest

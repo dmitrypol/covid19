@@ -28,6 +28,8 @@ spec:
             secretKeyRef:
               name: covid19-secrets
               key: RQ_DASHBOARD_PASSWORD
+        - name: CONTAINER_TYPE
+          value: web
         - name: REDIS_HOST
           value: redis-service.default
         - name: APP_ENV

@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: covid19-scheduler-deployment
+spec:
+  selector:
+    matchLabels:
+      app: covid19-scheduler
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: covid19-scheduler
+    spec:
+      containers:
+      - name: covid19-scheduler
+        image: iad.ocir.io/bmcdw/covid19_scheduler:latest
+        imagePullPolicy: Always
+        env:
+        - name: CONTAINER_TYPE
+          value: scheduler
+        - name: REDIS_HOST
+          value: redis-service.default
+        - name: APP_ENV
+          value: prod
+        - name: FLASK_APP
+          value: app
+      imagePullSecrets:
+        - name: ocir-creds
