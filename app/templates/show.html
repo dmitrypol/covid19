@@ -1,30 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 
-
-<div class="alert alert-primary" role="alert">
-    <h3>{{ obj.county }} County, {{ obj.state }}, {{ obj.country }}</h3>
-
-    Johns Hopkins CSSE is providing granular data starting March 22 so that date shows total at that point.
-    <br>
-    From then on the charts show the NEW cases for that day (NOT cumulative).
-</div>
-
-<hr>
-
-<h4>Confirmed cases</h4>
-<span class="badge badge-warning">
-    Total {{ last_confirmed }}
-</span>
-{% line_chart chart_data['confirmed'] %}<br>
-<br>
-
-<h4>Number of deaths</h4>
-<span class="badge badge-danger">
-    Total {{ last_deaths }}    
-</span>
-{% line_chart chart_data['deaths'] %}<br>
-<br>
+{% include '_charts.html' %}
 
 <hr>
 

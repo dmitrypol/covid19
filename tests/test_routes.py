@@ -29,6 +29,19 @@ def test_show_json(client):
     models.Location.create(name='KingWashingtonUS')
     response = client.get(url_for('show', name='KingWashingtonUS', format='json'))
     assert response.status_code == 200
+    #assert 'Washington' in response.json
+
+
+def test_show_state(client):
+    models.Location.create(name='KingWashingtonUS')
+    response = client.get(url_for('show', name='Washington'))
+    assert response.status_code == 200
+
+
+def test_show_state_json(client):
+    models.Location.create(name='KingWashingtonUS')
+    response = client.get(url_for('show', name='Washington', format='json'))
+    assert response.status_code == 200
 
 
 def _test_show_object_not_found(client):

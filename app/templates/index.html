@@ -2,14 +2,11 @@
 {% block content %}
 
 <div class='jumbotron'>
-  First I want to say that each human life is valuable.  
-  We should never treat these numbers as mere statistics as each death is a tragic loss for someone.  
-  Working from home I became concered about the psychological impact of the news. 
-  The best way I could analyze the information is new cases per day for a specific area.
+  This dashboard is meant to analyze COVID19 information as cases per day for specific areas (US, states and counties). 
 </div>
 
 <div class="alert alert-primary" role="alert">
-  Search for county or state and click the link to the county page.
+  To get data for specific county or state search for that county or state and click the links.
 </div>
 
 <table id="index_table" class="table table-bordered table-hover table-striped">
@@ -22,7 +19,7 @@
   <tbody>
     {% for obj in objs %}
       <tr>
-        <td>{{ obj.state }}</td>
+        <td><a href="{{ url_for( 'show', name=obj.state ) }}">{{ obj.state }}</a></td>
         <td><a href="{{ url_for( 'show', name=obj.name ) }}">{{ obj.county }}</a></td>
       </tr>
     {% else %}
@@ -33,7 +30,11 @@
     {% endfor %}
   </tbody>
 </table>
-  
+
+<hr>
+
+{% include '_charts.html' %}
+
 <hr>
 
 <div class="alert alert-primary" role="alert">

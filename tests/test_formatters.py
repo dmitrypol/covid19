@@ -13,7 +13,7 @@ def test_location_last_confirmed():
     obj2.save()
     assert formatters.last_confirmed([obj1]) == '3'
     assert formatters.last_confirmed([obj2]) == '2'
-    assert formatters.last_confirmed([obj1, obj2]) == '5'
+    assert formatters.last_confirmed(models.Location.all()) == '5'
 
 
 def test_location_last_deaths():
@@ -27,7 +27,7 @@ def test_location_last_deaths():
     obj2.save()
     assert formatters.last_deaths([obj1]) == '2'
     assert formatters.last_deaths([obj2]) == '1'
-    assert formatters.last_deaths([obj1, obj2]) == '3'
+    assert formatters.last_deaths(models.Location.all()) == '3'
 
 
 def test_location_format_chart_data():
@@ -53,6 +53,13 @@ def test_location_format_chart_data():
         'confirmed': [['03-22-2020', 15], ['03-23-2020', 6], ['03-24-2020', 6]],
         'deaths': [['03-22-2020', 7.0], ['03-23-2020', 2], ['03-24-2020', 2]]
         }
+    #
+    assert formatters.last_confirmed([obj1, obj2]) == '27'
+    assert formatters.last_deaths(models.Location.all()) == '11'
+
+
+def _test_pandas_sum_hashes():
+    pass
 
 
 def test_location_row_date_diff():

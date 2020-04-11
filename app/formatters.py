@@ -1,4 +1,5 @@
 ''' formatting data for models '''
+# pylint: disable = eval-used, unused-variable
 import pandas as pd
 
 
@@ -7,44 +8,41 @@ def last_confirmed(objs):
     for obj in objs:
         key = obj.confirmed.keys()[-1]
         output += int(obj.confirmed[key])
-    return str(output)
+    return "{:,}".format(output)
+
 
 def last_deaths(objs):
     output = 0
     for obj in objs:
         key = obj.deaths.keys()[-1]
         output += int(obj.deaths[key])
-    return str(output)
+    return "{:,}".format(output)
 
 
 def format_chart_data(objs):
-    #   TODO - DRY up
-    dfrm_con = pd.DataFrame()
-    confirmed_out = []
-    for obj in objs:
-        confirmed = dict(obj.confirmed)
-        for key, value in confirmed.items():
-            confirmed[key] = int(value)
-        dfrm_con = dfrm_con.append(confirmed, ignore_index=True)
-    confirmed_sum = dict(dfrm_con.sum())
-    for item in sorted(confirmed_sum.items()):
-        confirmed_out.append(list(item))
-    #
-    dfrm_dea = pd.DataFrame()
-    deaths_out = []
-    for obj in objs:
-        deaths = dict(obj.deaths)
-        for key, value in deaths.items():
-            deaths[key] = int(value)
-        dfrm_dea = dfrm_dea.append(deaths, ignore_index=True)
-    deaths_sum = dict(dfrm_dea.sum())
-    for item in sorted(deaths_sum.items()):
-        deaths_out.append(list(item))
-    #
+    confirmed_out = _pandas_sum_hashes(objs, 'confirmed')
+    deaths_out = _pandas_sum_hashes(objs, 'deaths')
     return {
         'confirmed':_row_date_diff(confirmed_out),
         'deaths':_row_date_diff(deaths_out),
         }
+
+
+def _pandas_sum_hashes(objs, method):
+    dfrm = pd.DataFrame()
+    output = []
+    for obj in objs:
+        data = dict(eval(f'obj.{method}'))
+        #   convert to int from str
+        for key, value in data.items():
+            data[key] = int(value)
+        dfrm = dfrm.append(data, ignore_index=True)
+    #   sum rows in dfrm
+    sum_rows = dict(dfrm.sum())
+    #   format data for chart
+    for item in sorted(sum_rows.items()):
+        output.append(list(item))
+    return output
 
 
 def _row_date_diff(row):

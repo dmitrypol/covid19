@@ -1,5 +1,4 @@
 ''' varous models '''
-# pylint: disable = no-self-use
 from walrus import Model, TextField, HashField
 from . import WALRUS_DB
 
