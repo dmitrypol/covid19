@@ -14,7 +14,7 @@ SCHED = BlockingScheduler(jobstores=JOBSTORES)
 logging.getLogger('apscheduler').setLevel(logging.WARNING)
 
 #   https://github.com/SPSCommerce/redlock-py
-DLM = redlock.Redlock(APP.config.get('REDLOCK_CONN'))
+DLM = redlock.Redlock(APP.config.get('REDLOCK_CONN'), retry_count=3, retry_delay=0.2) # in seconds
 
 
 # @SCHED.scheduled_job('interval', hours=1)
