@@ -35,8 +35,8 @@ def refresh_hp():
     try:
         my_lock = DLM.lock('refresh_hp', 10000)  #   in milliseconds
         if my_lock:
-            jobs.get_url('http://147.154.10.44')
-            jobs.get_url('http://147.154.10.44?format=json')
+            jobs.get_url('http://138.1.50.25/')
+            jobs.get_url('http://138.1.50.25?format=json')
             logging.info('refresh_hp')
             time.sleep(1)
             DLM.unlock(my_lock)
